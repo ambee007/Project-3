@@ -27,6 +27,9 @@ color.disabled = true;
 const design = document.getElementById("design");
 const optionColor = color.children;
 
+
+//used code from https://stackoverflow.com/questions/24359879/change-option-in-select-drop-down-using-javascript 
+//to figure out how to update default dropdown to design-related default
 //use the variable for design or theme menu to listen for the change even on this element
 design.addEventListener("change", (e)=>{
     color.disabled = false;
@@ -36,13 +39,17 @@ design.addEventListener("change", (e)=>{
         if (colorValue === colorTheme){
             optionColor[i].hidden = false;
             optionColor[i].setAttribute("selected", true);
+            color.getElementsByTagName("option")[i].selected = true;
 
         } else if (colorValue !== colorTheme) {
             optionColor[i].hidden = true;
             optionColor[i].setAttribute("selected", false);
+            console.log(colorTheme);
         }
     }
 });
+
+
 
 //If activity is checked, the total cost should increase by the value of the data cost attribute
 //If unchecked, the total cost decreases by the value of the data cost attribute
@@ -101,11 +108,8 @@ const email = document.getElementById("email");
 const form = document.querySelector("form");
 const checkBoxes = document.querySelectorAll("input[type=checkbox]");
 
-
-
 //name validation
 form.addEventListener("submit", (e)=>{
-
 const nameValue = nameEle.value
 const nameRegex = /[a-zA-Z0-9]$/
 const nameTest = nameRegex.test(nameValue);
@@ -113,6 +117,13 @@ if(nameTest === false){
     e.preventDefault();
     nameEle.parentNode.classList.add("not-valid");
     nameEle.parentNode.classList.remove("valid");
+    nameEle.lastElementChild;
+    document.querySelector("#name-hint").style.display = "block";
+} 
+
+if(nameTest === true){
+    nameEle.parentNode.classList.remove("not-valid");
+    nameEle.parentNode.classList.add("valid");
 }
 
 //email validation
@@ -124,6 +135,12 @@ if(emailTest === false){
     e.preventDefault();
     email.parentNode.classList.add("not-valid");
     email.parentNode.classList.remove("valid");
+    document.querySelector("#email-hint").style.display = "block";
+} 
+
+if(emailTest === true){
+    email.parentNode.classList.remove("not-valid");
+    email.parentNode.classList.add("valid");
 }
 
 //activities validation
@@ -136,11 +153,14 @@ for (i=0; i < checkBoxes.length; i++){
 
 if (activities.includes(true)){
  return activities;
-} else {
+} 
+
+if (activities.includes() != true){
     e.preventDefault();
     activity.parentNode.classList.add("not-valid");
     activity.parentNode.classList.remove("valid");
 }
+
 
 if (payMeth === "credit-card" || "select method") {
     const cardNumber = document.getElementById("cc-num");
@@ -149,12 +169,19 @@ if (payMeth === "credit-card" || "select method") {
     
     //credit card validation
     const ccVal = cardNumber.value
-    const ccRegex = /\d{16}?$/;
+    const ccRegex = /\d{13,16}?$/;
     const ccTest = ccRegex.test(ccVal);
     
     if(ccTest === false){
         e.preventDefault();
         cardNumber.parentNode.classList.add("not-valid");
+        cardNumber.parentNode.classList.add("valid");
+        document.querySelector("#cc-hint").style.display = "block";
+
+    }
+    
+    if(ccTest === true){
+        cardNumber.parentNode.classList.remove("not-valid");
         cardNumber.parentNode.classList.add("valid");
     }
     
@@ -168,6 +195,12 @@ if (payMeth === "credit-card" || "select method") {
         e.preventDefault();
         zipCode.parentNode.classList.add("not-valid");
         zipCode.parentNode.classList.remove("valid");
+        document.querySelector("#zip-hint").style.display = "block";
+    }
+    
+    if(zipTest === true){
+        zipCode.parentNode.classList.remove("not-valid");
+        zipCode.parentNode.classList.add("valid");
     }
     
     //cvv validation
@@ -175,17 +208,27 @@ if (payMeth === "credit-card" || "select method") {
     const cvvVal = cvv.value
     const cvvRegex = /^\d{3,4}?$/;
     const cvvTest = cvvRegex.test(cvvVal);
+    const cvvHint = document.getElementById("cvv-hint");
+
+
+    console.log(cvv);
     
     if(cvvTest === false){
         e.preventDefault();
         cvv.parentNode.classList.add("not-valid");
         cvv.parentNode.classList.remove("valid");
+        document.querySelector("#cvv-hint").style.display = "block";
+    }
+    
+    if(cvvTest === true){
+        cvv.parentNode.classList.remove("not-valid");
+        cvv.parentNode.classList.add("valid");
     }
 }
 }
 )
 
-//Accessibility
+//Accessibility - focus and blur on activities
 const activityCheckbox = document.querySelectorAll('input[type=checkbox]');
 
 for(i=0; i < activityCheckbox.length; i++){
@@ -196,7 +239,6 @@ for(i=0; i < activityCheckbox.length; i++){
         e.target.parentNode.classList.remove("focus");
     });
 };
-
 
 
 
