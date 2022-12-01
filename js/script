@@ -55,7 +55,7 @@ design.addEventListener("change", (e)=>{
 //If unchecked, the total cost decreases by the value of the data cost attribute
 //using code from stackoverflow: https://stackoverflow.com/questions/42017798/javascript-how-do-i-add-cost
 
-const activity = document.getElementById("activities");
+let activity = document.getElementById("activities");
 let cart = document.getElementById("activities-cost");
 let totalCart = 0
 
@@ -124,6 +124,7 @@ if(nameTest === false){
 if(nameTest === true){
     nameEle.parentNode.classList.remove("not-valid");
     nameEle.parentNode.classList.add("valid");
+    document.querySelector("#name-hint").style.display = "none";
 }
 
 //email validation
@@ -141,28 +142,35 @@ if(emailTest === false){
 if(emailTest === true){
     email.parentNode.classList.remove("not-valid");
     email.parentNode.classList.add("valid");
+    document.querySelector("#email-hint").style.display = "none";
 }
 
 //activities validation
 let activities = [];
+let activ = document.getElementById("activities-box")
 
 
 for (i=0; i < checkBoxes.length; i++){
     activities += checkBoxes[i].checked;
 }
 
+
 if (activities.includes(true)){
- return activities;
+    activ.parentNode.classList.remove("not-valid");
+    activ.parentNode.classList.add("valid");
+    document.querySelector("#activities-hint").style.display = "none";
 } 
 
-if (activities.includes() != true){
+if (activities.includes(true) === false){
     e.preventDefault();
-    activity.parentNode.classList.add("not-valid");
-    activity.parentNode.classList.remove("valid");
+    activ.parentNode.classList.add("not-valid");
+    activ.parentNode.classList.remove("valid");
+    document.querySelector("#activities-hint").style.display = "block";
 }
 
 
-if (payMeth === "credit-card" || "select method") {
+
+if (payMeth.value === "credit-card" || "select method") {
     const cardNumber = document.getElementById("cc-num");
     const zipCode = document.getElementById("zip");
     const cvv = document.getElementById("cvv");
@@ -177,12 +185,12 @@ if (payMeth === "credit-card" || "select method") {
         cardNumber.parentNode.classList.add("not-valid");
         cardNumber.parentNode.classList.add("valid");
         document.querySelector("#cc-hint").style.display = "block";
-
     }
     
     if(ccTest === true){
         cardNumber.parentNode.classList.remove("not-valid");
         cardNumber.parentNode.classList.add("valid");
+        document.querySelector("#cc-hint").style.display = "none";
     }
     
     //zip code validation
@@ -201,6 +209,7 @@ if (payMeth === "credit-card" || "select method") {
     if(zipTest === true){
         zipCode.parentNode.classList.remove("not-valid");
         zipCode.parentNode.classList.add("valid");
+        document.querySelector("#zip-hint").style.display = "none";
     }
     
     //cvv validation
@@ -209,9 +218,6 @@ if (payMeth === "credit-card" || "select method") {
     const cvvRegex = /^\d{3,4}?$/;
     const cvvTest = cvvRegex.test(cvvVal);
     const cvvHint = document.getElementById("cvv-hint");
-
-
-    console.log(cvv);
     
     if(cvvTest === false){
         e.preventDefault();
@@ -223,6 +229,7 @@ if (payMeth === "credit-card" || "select method") {
     if(cvvTest === true){
         cvv.parentNode.classList.remove("not-valid");
         cvv.parentNode.classList.add("valid");
+        document.querySelector("#zip-hint").style.display = "none";
     }
 }
 }
