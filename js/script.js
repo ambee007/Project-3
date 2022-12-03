@@ -168,9 +168,7 @@ if (activities.includes(true) === false){
     document.querySelector("#activities-hint").style.display = "block";
 }
 
-
-
-if (payMeth.value === "credit-card" || "select method") {
+if (payMeth.value === "credit-card" ) {
     const cardNumber = document.getElementById("cc-num");
     const zipCode = document.getElementById("zip");
     const cvv = document.getElementById("cvv");
@@ -229,9 +227,9 @@ if (payMeth.value === "credit-card" || "select method") {
     if(cvvTest === true){
         cvv.parentNode.classList.remove("not-valid");
         cvv.parentNode.classList.add("valid");
-        document.querySelector("#zip-hint").style.display = "none";
+        document.querySelector("#cvv-hint").style.display = "none";
     }
-}
+} 
 }
 )
 
@@ -246,10 +244,3 @@ for(i=0; i < activityCheckbox.length; i++){
         e.target.parentNode.classList.remove("focus");
     });
 };
-
-
-
-
-
-
-
